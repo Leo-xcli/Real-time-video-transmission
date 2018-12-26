@@ -2,24 +2,19 @@
 #include<string.h>
 #include<stdio.h>
 #include "mfc.h"
-
 MFC::MFC()
 {    
 }
-
 SSBSIP_MFC_ERROR_CODE MFC::initMFC_ENC(int w, int h, int qb)
 {
     SSBSIP_MFC_ERROR_CODE ret;
-
     enc_width=w;
     enc_height=h;
     enc_param = (SSBSIP_MFC_ENC_H264_PARAM*)malloc(sizeof(SSBSIP_MFC_ENC_H264_PARAM));
     memset(enc_param, 0 , sizeof(SSBSIP_MFC_ENC_H264_PARAM));
-
     enc_param->codecType=H264_ENC;
     enc_param->SourceWidth=enc_width;
     enc_param->SourceHeight=enc_height;
-	
  //   enc_param->ProfileIDC=1;  
   //  enc_param->LevelIDC=40;
   //  enc_param->IDRPeriod=2;//3
@@ -51,12 +46,8 @@ SSBSIP_MFC_ERROR_CODE MFC::initMFC_ENC(int w, int h, int qb)
   //  enc_param->SmoothDisable=0;//1
   //  enc_param->StaticDisable=0;//1
    // enc_param->ActivityDisable=0;//1
-
-   
-
    enc_param->FrameQp_P = enc_param->FrameQp+1;
    enc_param->FrameQp_B = enc_param->FrameQp+3;
-
     hOpen = SsbSipMfcEncOpen();
     if(hOpen == NULL)
     {
@@ -64,21 +55,18 @@ SSBSIP_MFC_ERROR_CODE MFC::initMFC_ENC(int w, int h, int qb)
         ret = MFC_RET_FAIL;
         return ret;
     }
-
     if(SsbSipMfcEncInit(hOpen, enc_param) != MFC_RET_OK)
     {
         printf("SsbSipMfcEncInit Failed\n");
         ret = MFC_RET_FAIL;
         goto out;
     }
-
     if(SsbSipMfcEncGetInBuf(hOpen, &input_info_enc) != MFC_RET_OK)
     {
         printf("SsbSipMfcEncGetInBuf Failed\n");
         ret = MFC_RET_FAIL;
         goto out;
     }
-
     ret=SsbSipMfcEncGetOutBuf(hOpen, &output_info_enc);
     if(output_info_enc.headerSize <= 0)
     {
@@ -95,20 +83,17 @@ out:
     SsbSipMfcEncClose(hOpen);
     return ret;
 }
-
 int MFC::getHeader(unsigned char **p)
 {
     //memcpy(*p,header,headerSize);
     *p=header;
     return headerSize;
 }
-
 void MFC::getInputBuf(void **Y,void **UV)
 {
     *Y=input_info_enc.YVirAddr;
     *UV=input_info_enc.CVirAddr;
 }
-
 int MFC::encode(void *input_buf,void **output_buf)
 {
    SSBSIP_MFC_ERROR_CODE err;
@@ -119,12 +104,11 @@ int MFC::encode(void *input_buf,void **output_buf)
       memcpy(input_info_enc.CVirAddr,(void*)input_buf+(enc_width*enc_height), enc_width*enc_height/2);//+(CAMERA_WIDTH*CAMERA_HEIGHT)	
       //  printf("::MFC::SsbSipMfcEncSetInBuf !!!\n");
         err = SsbSipMfcEncSetInBuf(hOpen,&input_info_enc);
-	        if(err<0) {
+	        if(err<0)
+            {
 	            fprintf(stderr,"Error: SsbSipMfcEncSetInBuf. Code %d\n",err);
 	            return 0;
 	        }
-
-
     if(SsbSipMfcEncExe(hOpen) != MFC_RET_OK){
         printf("Encoding Failed\n");
         return 0;
@@ -139,7 +123,6 @@ int MFC::encode(void *input_buf,void **output_buf)
    *output_buf=output_info_enc.StrmVirAddr;
     return output_info_enc.dataSize;
 }
-
 void MFC::closeMFC()
 {
     SsbSipMfcEncClose(hOpen);

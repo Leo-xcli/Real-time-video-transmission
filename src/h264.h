@@ -6,7 +6,7 @@
 #include <string.h>
 
 #define MAX_RTP_PKT_LENGTH     		1400
-#define DEST_IP              		"192.168.1.102"//接收方的IP VLC播放器IP地址
+#define DEST_IP              		"192.168.1.104"//接收方的IP VLC播放器IP地址
 #define DEST_PORT            		1234
 #define H264                    	96
 typedef struct 

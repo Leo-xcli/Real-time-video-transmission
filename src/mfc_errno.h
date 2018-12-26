@@ -20,16 +20,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 #ifndef __MFC_ERRNO_H
 #define __MFC_ERRNO_H __FILE__
-
 enum mfc_ret_code {
     MFC_OK = 1,
     MFC_FAIL = -1000,
     MFC_OPEN_FAIL = -1001,
     MFC_CLOSE_FAIL = -1002,
-
     MFC_DEC_INIT_FAIL = -2000,
     MFC_DEC_EXE_TIME_OUT = -2001,
     MFC_DEC_EXE_ERR = -2002,
@@ -38,7 +35,6 @@ enum mfc_ret_code {
     MFC_DEC_GET_OUTBUF_FAIL = -2005,
     MFC_DEC_GET_CONF_FAIL = -2006,
     MFC_DEC_SET_CONF_FAIL = -2007,
-
     MFC_ENC_INIT_FAIL = -3000,
     MFC_ENC_EXE_TIME_OUT = -3001,
     MFC_ENC_EXE_ERR = -3002,
@@ -48,7 +44,6 @@ enum mfc_ret_code {
     MFC_ENC_SET_OUTBUF_FAIL = -3006,
     MFC_ENC_GET_CONF_FAIL = -3007,
     MFC_ENC_SET_CONF_FAIL = -3008,
-
     MFC_STATE_INVALID = -4000,
     MFC_DEC_HEADER_FAIL = -4001,
     MFC_DEC_INIT_BUF_FAIL = -4002,
@@ -65,15 +60,12 @@ enum mfc_ret_code {
     MFC_SET_CONF_FAIL = -6008,
     MFC_INVALID_PARAM_FAIL = -6009,
     MFC_API_FAIL = -9000,
-
     MFC_CMD_FAIL = -1003,
     MFC_SLEEP_FAIL = -1010,
     MFC_WAKEUP_FAIL = -1020,
-
     MFC_CLK_ON_FAIL = -1030,
     MFC_CLK_OFF_FAIL = -1030,
     MFC_PWR_ON_FAIL = -1040,
     MFC_PWR_OFF_FAIL = -1041,
 };
-
 #endif /* __MFC_ERRNO_H */

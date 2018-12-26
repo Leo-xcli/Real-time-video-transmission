@@ -1,8 +1,6 @@
 #ifndef CAMERA_H
 #define CAMERA_H
-
 #include <sys/types.h>
-	
 #define CAPTURE_BUFFER_NUMBER	3
 #define FPS              20
 typedef enum {
@@ -13,8 +11,6 @@ typedef enum {
 		int length;
 		int bytesused;
 		} BUFTYPE;
-
-
 class Camera
 {
 public:
@@ -40,12 +36,9 @@ private:
 	bool  sign3;
     int width;
     int height;
-    
     unsigned int cap_image_size ;
-
     bool  cam_setfmt(void);
     bool  cam_reqbufs();
-
     void  stop_capturing(void);//停止捕捉
     int   fimc0_setfmt(void);
 	int   fimc0_reqbufs();
@@ -55,10 +48,8 @@ private:
 	void  cam_cap_qbuf(int );
 	int   fimc0_out_qbuf(int);
 	int   fimc0_out_dbuf(int *);
-
     void  errno_exit(const char * s);
     int   xioctl(int fd, int request, void * arg);
 	void  dump_format(char *str, struct v4l2_format *fmt);
 };
-
 #endif // CAMERA_H
